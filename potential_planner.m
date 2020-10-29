@@ -20,10 +20,10 @@ function [xPath,UPath]=potential_planner(xStart,world,potential,plannerParameter
         xPath(:,i) = xPath(:,i-1) + plannerParameters.epsilon*plannerParameters.control(xPath(:,i-1),world,potential);
         UPath(:,i) = plannerParameters.U(xPath(:,i),world,potential);
         
-        if (i>=plannerParameters.NStep)
+        if (i>=plannerParameters.NSteps)
             finished = true;
         end
-        if (xPath(:,i) == world.xGoal)
+        if (xPath(:,i) == potential.xGoal)
             xPath(:,i+1:plannerParameters.NSteps)=NaN(2,plannerParameters.NSteps-(i+1));
             UPath(:,i+1:plannerParameters.NSteps)=NaN(2,plannerParameters.NSteps-(i+1));
             finished = true;
