@@ -11,22 +11,17 @@ function [xPath,UPath]=potential_planner(xStart,world,potential,plannerParameter
     UPath = zeros(1, plannerParameters.NSteps);
     
     xPath(:,1) = xStart;
-    UPath(:,1) = plannerParameters.U(xPath(:,1),world,potential);
+    UPath(:,1) = plannerParameters.U(xPath(:,1),
     
-    i = 1;
+    i = 2;
     finished = false;
     while(~finished)
-        i = i + 1;
         xPath(:,i) = xPath(:,i-1) + plannerParameters.epsilon*plannerParameters.control(xPath(:,i-1),world,potential);
-        UPath(:,i) = plannerParameters.U(xPath(:,i),world,potential);
         
-        if (i>=plannerParameters.NStep)
+        if ((i>=plannerParameters.NStep) || (xPath(:,i) == world.xGoal))
             finished = true;
         end
-        if (xPath(:,i) == world.xGoal)
-            xPath(:,i+1:plannerParameters.NSteps)=NaN(2,plannerParameters.NSteps-(i+1));
-            UPath(:,i+1:plannerParameters.NSteps)=NaN(2,plannerParameters.NSteps-(i+1));
-            finished = true;
-        end 
+        i = i + 1;
     end
+
 end
