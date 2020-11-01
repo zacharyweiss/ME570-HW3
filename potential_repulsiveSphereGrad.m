@@ -7,11 +7,13 @@ function [gradURep]=potential_repulsiveSphereGrad(xEval,sphere)
     distGrad = sphere_distanceGrad(sphere,xEval);
     
     flagDistPositive = dist>0;
-    gradURep(~flagDistPositive) = NaN(2,1);
+    gradURep(:,~flagDistPositive) = NaN;
     
     flagDistInfluence=dist<sphere.distInfluence;
     flagValid=flagDistPositive & flagDistInfluence;
     
-    gradURep(:,flagValid) = -distGrad(:,flagValid).*(1./dist(flagValid)-1/sphere.distInfluence).*(1./(dist(flagValid).^2));
+    if flagValid
+        gradURep(:,flagValid) = (1./dist(flagValid)-1/sphere.distInfluence).*(1./(dist(flagValid).^2)).*distGrad(:,flagValid);
+    end
 end
 %This function must use the outputs of sphere_distanceGrad.
