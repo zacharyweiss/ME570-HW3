@@ -13,19 +13,19 @@ function [xPath,UPath]=potential_planner(xStart,world,potential,plannerParameter
     xPath(:,1) = xStart;
     UPath(:,1) = plannerParameters.U(xPath(:,1),world,potential);
     
-    i = 1;
+    iStep = 1;
     finished = false;
-    while(~finished)
-        i = i + 1;
-        xPath(:,i) = xPath(:,i-1) + plannerParameters.epsilon*plannerParameters.control(xPath(:,i-1),world,potential);
-        UPath(:,i) = plannerParameters.U(xPath(:,i),world,potential);
+    while ~finished
+        iStep = iStep + 1;
+        xPath(:,iStep) = xPath(:,iStep-1) + plannerParameters.epsilon*plannerParameters.control(xPath(:,iStep-1),world,potential);
+        UPath(:,iStep) = plannerParameters.U(xPath(:,iStep),world,potential);
         
-        if (i>=plannerParameters.NSteps)
+        if iStep>=plannerParameters.NSteps
             finished = true;
         end
-        if (xPath(:,i) == potential.xGoal)
-            xPath(:,i+1:plannerParameters.NSteps)=NaN(2,plannerParameters.NSteps-(i+1));
-            UPath(:,i+1:plannerParameters.NSteps)=NaN(2,plannerParameters.NSteps-(i+1));
+        if xPath(:,iStep)==potential.xGoal
+            xPath(:,iStep+1:plannerParameters.NSteps)=NaN(2,plannerParameters.NSteps-(iStep+1));
+            UPath(:,iStep+1:plannerParameters.NSteps)=NaN(2,plannerParameters.NSteps-(iStep+1));
             finished = true;
         end 
     end
