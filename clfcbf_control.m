@@ -12,7 +12,7 @@ function [uOpt]=clfcbf_control(xEval,world,potential)
         dPointsSphere(iSphere) = sphere_distance(world(1,iSphere),xEval);
     end
     
-    [uOpt,~] = qp_minEffort(gradUAttr',UAttr,-gradDPointsSphere',-dPointsSphere',potential.repulsiveWeight);
+    [uOpt,~] = qp_minEffortFix(gradUAttr',UAttr,-gradDPointsSphere',-dPointsSphere',potential.repulsiveWeight);
 end
 %This function should use qp_minEffortFix from Question~ q:minEffortFix, by
 %building $A_ attr$, $b_ attr$ according to $ $ in    @  (  eq:CLF \@@italiccorr
