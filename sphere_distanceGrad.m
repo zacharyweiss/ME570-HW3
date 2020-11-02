@@ -13,7 +13,7 @@ function [gradDPointsSphere]=sphere_distanceGrad(sphere,points)
             gradDPointsSphere(:,iPts) = vecPCenter/dPCenter;
         end
     end
-    if sphere.radius<0
+    if sphere.radius>0
         gradDPointsSphere = gradDPointsSphere.*(-1); 
     end
 end
