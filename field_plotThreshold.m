@@ -11,7 +11,7 @@ end
 
 if ~exist('grid','var')
     NGrid=61;
-    grid.xx=linspace(-2,2,NGrid);
+    grid.xx=linspace(-10,10,NGrid);
     grid.yy=grid.xx;
 end
 grid=grid_eval(grid,@(x) clip(fHandle(x),threshold));
