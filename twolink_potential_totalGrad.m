@@ -10,9 +10,9 @@ function [gradUTheta]=twolink_potential_totalGrad(thetaEval,world,potential)
 
     potRepGradTot = zeros(2,1);
     for iSphere=1:size(world,2)
-        gradUPullback = potential_repulsiveSphereGrad(vertexEffectorTransf,world(iSphere))'*jacob*xDot;
+        gradUPullback = (potential_repulsiveSphereGrad(vertexEffectorTransf,world(iSphere))'*jacob)'*xDot;
         potRepGradTot = potRepGradTot + gradUPullback;
     end
     
-    gradUTheta = potential_attractiveGrad(vertexEffectorTransf,potential)'*jacob*xDot + potential.repulsiveWeight.*potRepGradTot;
+    gradUTheta = (potential_attractiveGrad(vertexEffectorTransf,potential)'*jacob)'*xDot + potential.repulsiveWeight.*potRepGradTot;
 end
