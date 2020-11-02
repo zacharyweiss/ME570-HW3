@@ -5,8 +5,8 @@ function [gradUTheta]=twolink_potential_totalGrad(thetaEval,world,potential)
     twolinkPos = twolink_jacobianMatrix(thetaEval);
 
     potRepGradTot = zeros(size(thetaEval,1),1);
-    for i=1:size(world,2)
-        potRepGradTot = potRepGradTot + potential_repulsiveSphereGrad(twolinkPos(:,1),world(i));
+    for iSphere=1:size(world,2)
+        potRepGradTot = potRepGradTot + potential_repulsiveSphereGrad(twolinkPos(:,1),world(iSphere));
     end
     
     gradUTheta = potential_attractiveGrad(twolinkPos(:,1),potential) + potential.repulsiveWeight.*potRepGradTot;
