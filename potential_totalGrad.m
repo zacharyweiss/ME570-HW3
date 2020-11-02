@@ -7,6 +7,5 @@ function [gradU]=potential_totalGrad(xEval,world,potential)
         potRepGradTot = potRepGradTot + potential_repulsiveSphereGrad(xEval,world(i));
     end
     
-    gradU = potential_attractiveGrad(xEval,potential) - potential.repulsiveWeight.*potRepGradTot;
-
+    gradU = potential_attractiveGrad(xEval,potential) + potential.repulsiveWeight.*potRepGradTot;
 end
