@@ -9,6 +9,7 @@ function [UTheta]=twolink_potential_total(thetaEval,world,potential)
     wRbone = rot2d(thetaEval(1));
     boneRbtwo = rot2d(thetaEval(2));
     vertexEffectorTransf = wRbone*boneRbtwo*[5; 0] + wRbone*[5; 0];
+    %test comment
     
     potRepTot = 0;
     for iRep=1:size(world,2)
