@@ -10,7 +10,7 @@ if ~exist('threshold','var')
 end
 
 if ~exist('grid','var')
-    NGrid=61;
+    NGrid=45;
     grid.xx=linspace(-10,10,NGrid);
     grid.yy=grid.xx;
 end
