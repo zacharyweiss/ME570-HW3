@@ -9,11 +9,11 @@ function [gradDPointsSphere]=sphere_distanceGrad(sphere,points)
         else
             vecPCenter = sphere.xCenter - points(:,iPts);
             %dPCenter = sqrt((points(1,iPts)-sphere.xCenter(1))^2+(points(2,iPts)-sphere.xCenter(2))^2);
-            dPCenter = norm(points(:,iPts)-sphere.xCenter);
+            dPCenter = norm(sphere.xCenter-points(:,iPts));
             gradDPointsSphere(:,iPts) = vecPCenter/dPCenter;
-            if sphere.radius>0
-                gradDPointsSphere(:,iPts) = gradDPointsSphere(:,iPts).*(-1); 
-            end
         end
+    end
+    if sphere.radius<0
+        gradDPointsSphere = gradDPointsSphere.*(-1); 
     end
 end
