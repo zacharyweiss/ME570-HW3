@@ -6,7 +6,6 @@ function [gradUTheta]=twolink_potential_totalGrad(thetaEval,world,potential)
     boneRbtwo = rot2d(thetaEval(2));
     vertexEffectorTransf = wRbone*boneRbtwo*[5; 0] + wRbone*[5; 0];
     jacob = twolink_jacobianMatrix(thetaEval);
-    %xDot = [1/2;1/2];
 
     potRepGradTot = zeros(2,1);
     for iSphere=1:size(world,2)
