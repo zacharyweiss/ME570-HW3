@@ -5,12 +5,13 @@ function [gradUTheta]=twolink_potential_totalGrad(thetaEval,world,potential)
     wRbone = rot2d(thetaEval(1));
     boneRbtwo = rot2d(thetaEval(2));
     vertexEffectorTransf = wRbone*boneRbtwo*[5; 0] + wRbone*[5; 0];
-    jacobT = twolink_jacobianMatrix(thetaEval)';
+    jacob = twolink_jacobianMatrix(thetaEval);
 
     potRepGradTot = zeros(2,1);
     for iSphere=1:size(world,2)
-        potRepGradTot = potRepGradTot + potential_repulsiveSphereGrad(vertexEffectorTransf,world(iSphere))*jacobT(2,:);
+        gradUPullback = potential_repulsiveSphereGrad(vertexEffectorTransf,world(iSphere))'*jacob;
+        potRepGradTot = potRepGradTot + gradUPullback;
     end
     
-    gradUTheta = potential_attractiveGrad(vertexEffectorTransf,potential) + potential.repulsiveWeight.*potRepGradTot;
+    gradUTheta = potential_attractiveGrad(vertexEffectorTransf,potential)'*jacob + potential.repulsiveWeight.*potRepGradTot;
 end
